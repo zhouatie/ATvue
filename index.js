@@ -2,7 +2,8 @@ import ATvue from './ATvue'
 
 new ATvue({
     el: '#app',
-    data: {
-        message: 'this is message'
-    }
+    data: '32'
+    // data: {
+    //     message: 'this is message'
+    // }
 })

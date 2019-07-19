@@ -10,6 +10,7 @@ module.exports = {
     },
     devServer: {
         port: 3000,
+        open: true,
         contentBase: path.join(__dirname, './dist')
     },
     plugins: [
