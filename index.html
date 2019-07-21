@@ -8,10 +8,15 @@
 </head>
 <body>
     <div id="app">
-        {{message}}
-        <span>{{message}}</span>
-        <p>haha</p>
-        <div>{{message}}</div>
+        <input type="text" v-model="school.name">
+        <div>{{school.name}}</div>
+        <div>{{school.age}}</div>
+        {{getNewName}}
+        <ul>
+            <li>1</li>
+        </ul>
+        <button v-on:click="change">更新操作</button>
+        <div v-html="message"></div>
     </div>
 </body>
 </html>
