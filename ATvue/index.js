@@ -6,11 +6,33 @@ import {
     isFunction
 } from 'util';
 
+
+class Compiler {
+    constructor(el, vm) {
+        this.el = this.isRealElem(el) ? el : document.querySelector(el)
+        let fragment = this.node2fragment(this.el)
+        this.el.appendChild(fragment)
+    }
+    isRealElem(elem) {
+        return elem.nodeType === 1;
+    }
+    node2fragment(node) {
+        // dom 的内存具有可移动性
+        let fragment = document.createDocumentFragment()
+        let firstChild
+        while (firstChild = node.firstChild) {
+            console.log(firstChild, 'while')
+            fragment.appendChild(firstChild)
+        }
+        return fragment
+    }
+}
+
 class ATvue {
     constructor(options) {
         this.vm = this
         this.$el = options.el
-        
+
         if (isObject(options.data)) {
             this.$data = deepCopy(options.data);
         } else if (isFunction(options.data)) {
@@ -19,7 +41,7 @@ class ATvue {
             console.error('data 参数有误')
         }
 
-        // new Compiler(this.$data)
+        new Compiler(this.$el, this)
     }
 }
 
@@ -27,7 +49,7 @@ class ATvue {
 const defineReactive = (vm, data) => {
     if (!isObject(data)) return;
 
-    for(let prop in data) {
+    for (let prop in data) {
         if (isObject(prop)) {
             defineReactive(prop)
         } else {
@@ -36,16 +58,11 @@ const defineReactive = (vm, data) => {
                     return data[prop]
                 },
                 set(val) {
-                    
+                    data[prop] = val
                 }
             })
         }
     }
 };
 
-class Observer {
-    constructor() {
-
-    }
-}
 export default ATvue
